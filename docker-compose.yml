@@ -1,0 +1,15 @@
+services:
+  mobilehomerescue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mobilehomerescue:latest
+    container_name: mobilehomerescue
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_SITE_URL: https://mobilehomerescue.com
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "3000:3000"
