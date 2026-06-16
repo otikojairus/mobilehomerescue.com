@@ -7,6 +7,7 @@ import {
   faqsFor,
   isCityPage,
   pageLocation,
+  serviceTopicLabel,
   toPath,
 } from "@/lib/site-data";
 
@@ -71,7 +72,7 @@ export function cityServiceSchema(page: SeoPage) {
         "@id": `${absoluteUrl(page.pageSlug)}#local-business`,
       },
       areaServed: pageLocation(page),
-      serviceType: page.primaryKeyword,
+      serviceType: serviceTopicLabel(page),
       url: absoluteUrl(page.pageSlug),
     },
   ];

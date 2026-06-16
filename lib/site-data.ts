@@ -109,7 +109,18 @@ export function supportCityLinks(page: SeoPage, limit = 5) {
 }
 
 export function linkLabel(page: SeoPage) {
+  if (isCityPage(page)) return cityFromTargetArea(page.targetArea);
   return titleCase(page.primaryKeyword);
+}
+
+export function pageListLabel(page: SeoPage) {
+  if (isCityPage(page)) return cityFromTargetArea(page.targetArea);
+  return page.pageTitle.replace(/\s*\|.*/, "").replace(/\s+in Canada$/i, "").trim();
+}
+
+export function serviceTopicLabel(page: SeoPage) {
+  const source = isCityPage(page) ? pillarFor(page) : page;
+  return pageListLabel(source).replace(/\s+Services$/i, "").trim();
 }
 
 export function buildH1(page: SeoPage) {
@@ -139,11 +150,16 @@ export function buildMetaTitle(page: SeoPage) {
 
 export function buildMetaDescription(page: SeoPage) {
   const location = pageLocation(page);
-  const opener = `${titleCase(page.primaryKeyword)} help for ${location}`;
+  const opener = isCityPage(page)
+    ? `${serviceTopicLabel(page)} help in ${location}`
+    : `${titleCase(page.primaryKeyword)} help for ${location}`;
   let description = `${opener} with focused triage, clear repair options, and direct phone intake. Call ${PHONE_DISPLAY} for mobile home, RV, leak, or flood support.`;
   if (description.length > 160) {
     description = description.slice(0, 157);
-    description = `${description.slice(0, description.lastIndexOf(" ")).replace(/[,. ]+$/, "")}.`;
+    description = `${description
+      .slice(0, description.lastIndexOf(" "))
+      .replace(/\b(and|or|for|with)\b$/i, "")
+      .replace(/[,. ]+$/, "")}.`;
   }
   while (description.length < 150) {
     const addition = description.length < 132 ? " Fast dispatch guidance." : " Call now.";
@@ -212,7 +228,7 @@ const faqOpeners = [
 ];
 
 export function faqsFor(page: SeoPage) {
-  const topic = humanTopic(page);
+  const topic = serviceTopicLabel(page);
   const location = pageLocation(page);
   return [
     {

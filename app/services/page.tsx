@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
-import { CITY_PAGES, SEO_PAGES, SERVICE_PILLARS, SUPPORT_PAGES, SITE_NAME, absoluteUrl, linkLabel, toPath } from "@/lib/site-data";
+import {
+  CITY_PAGES,
+  SEO_PAGES,
+  SERVICE_PILLARS,
+  SUPPORT_PAGES,
+  SITE_NAME,
+  absoluteUrl,
+  linkLabel,
+  pageListLabel,
+  toPath,
+} from "@/lib/site-data";
 import { breadcrumbSchema } from "@/lib/schema";
 
 const serviceFaqs = [
@@ -69,7 +79,7 @@ export default function ServicesPage() {
             {SERVICE_PILLARS.map((page) => (
               <Link className="rescue-card rescue-card-link" href={toPath(page.pageSlug)} key={page.pageSlug}>
                 <span>{page.priority}</span>
-                <h3>{page.pageTitle.replace(/\s*\|.*/, "")}</h3>
+                <h3>{pageListLabel(page)}</h3>
                 <p>{page.searchIntent} page for {page.targetArea.toLowerCase()}.</p>
               </Link>
             ))}
@@ -108,8 +118,8 @@ export default function ServicesPage() {
           <h2>All Pages</h2>
           <div className="rescue-index-list">
             {SEO_PAGES.map((page) => (
-              <Link href={toPath(page.pageSlug)} key={page.pageSlug}>
-                {page.pageTitle}
+              <Link href={toPath(page.pageSlug)} key={page.pageSlug} aria-label={pageListLabel(page)}>
+                {pageListLabel(page)}
               </Link>
             ))}
           </div>

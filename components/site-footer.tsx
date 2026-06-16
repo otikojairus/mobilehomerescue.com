@@ -1,6 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CITY_PAGES, PHONE_DISPLAY, PHONE_E164, SERVICE_PILLARS, SITE_NAME, SUPPORT_PAGES, toPath } from "@/lib/site-data";
+import {
+  CITY_PAGES,
+  PHONE_DISPLAY,
+  PHONE_E164,
+  SERVICE_PILLARS,
+  SITE_NAME,
+  SUPPORT_PAGES,
+  pageListLabel,
+  toPath,
+} from "@/lib/site-data";
 
 export function SiteFooter() {
   return (
@@ -24,7 +33,7 @@ export function SiteFooter() {
           <nav className="rescue-footer-links" aria-label="Footer service hubs">
             {SERVICE_PILLARS.map((page) => (
               <Link key={page.pageSlug} href={toPath(page.pageSlug)}>
-                {page.pageTitle.replace(/\s*\|.*/, "")}
+                {pageListLabel(page)}
               </Link>
             ))}
           </nav>
@@ -34,7 +43,7 @@ export function SiteFooter() {
           <nav className="rescue-footer-links" aria-label="Footer support pages">
             {SUPPORT_PAGES.slice(0, 7).map((page) => (
               <Link key={page.pageSlug} href={toPath(page.pageSlug)}>
-                {page.pageTitle.replace(/\s*\|.*/, "")}
+                {pageListLabel(page)}
               </Link>
             ))}
           </nav>
@@ -43,8 +52,8 @@ export function SiteFooter() {
           <h2>City Coverage</h2>
           <nav className="rescue-footer-links rescue-footer-cities" aria-label="Footer city pages">
             {CITY_PAGES.slice(0, 14).map((page) => (
-              <Link key={page.pageSlug} href={toPath(page.pageSlug)}>
-                {page.pageTitle.replace(/\s*\|.*/, "")}
+              <Link key={page.pageSlug} href={toPath(page.pageSlug)} aria-label={pageListLabel(page)}>
+                {pageListLabel(page)}
               </Link>
             ))}
           </nav>

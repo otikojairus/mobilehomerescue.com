@@ -15,12 +15,12 @@ import {
   cityFromTargetArea,
   cityPagesForPillar,
   faqsFor,
-  humanTopic,
   isCityPage,
   linkLabel,
   pageLocation,
   pillarFor,
   sameCityPages,
+  serviceTopicLabel,
   supportCityLinks,
   toPath,
 } from "@/lib/site-data";
@@ -43,7 +43,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: buildMetaTitle(page),
     description: buildMetaDescription(page),
     alternates: { canonical: toPath(page.pageSlug) },
-    keywords: [page.primaryKeyword, ...page.secondaryKeywords.split(",").map((item) => item.trim()).filter(Boolean)],
     openGraph: {
       title: buildMetaTitle(page),
       description: buildMetaDescription(page),
@@ -57,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function introText(page: NonNullable<ReturnType<typeof bySlug>>) {
   const location = pageLocation(page);
-  const topic = humanTopic(page).toLowerCase();
+  const topic = serviceTopicLabel(page).toLowerCase();
   const facts = cityFactsFor(page);
   if (isCityPage(page) && facts) {
     return `${location} service calls often start with the local setting: homes near ${facts.landmarks[0]}, parks and older housing around ${facts.neighborhoods[0]}, and utility rooms affected by ${facts.climate}. For ${topic}, the first conversation should identify the structure type, shutoff access, visible moisture, flooring condition, and whether the home is occupied, rented, or parked seasonally. That detail helps the response plan stay practical before anyone opens a wall, removes skirting, or disturbs wet material.`;
@@ -66,7 +65,7 @@ function introText(page: NonNullable<ReturnType<typeof bySlug>>) {
 }
 
 function planningText(page: NonNullable<ReturnType<typeof bySlug>>) {
-  const topic = humanTopic(page).toLowerCase();
+  const topic = serviceTopicLabel(page).toLowerCase();
   const location = pageLocation(page);
   const facts = cityFactsFor(page);
   if (isCityPage(page) && facts) {

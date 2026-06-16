@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { PHONE_DISPLAY, PHONE_E164, SERVICE_PILLARS, SITE_NAME, toPath } from "@/lib/site-data";
+import { PHONE_DISPLAY, PHONE_E164, SERVICE_PILLARS, SITE_NAME, pageListLabel, toPath } from "@/lib/site-data";
 
 export function SiteNavbar() {
   const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ export function SiteNavbar() {
             <Link href="/services">Services</Link>
             {SERVICE_PILLARS.slice(0, 3).map((page) => (
               <Link key={page.pageSlug} href={toPath(page.pageSlug)}>
-                {page.pageTitle.replace(/\s*\|.*/, "")}
+                {pageListLabel(page)}
               </Link>
             ))}
           </nav>
@@ -71,7 +71,7 @@ export function SiteNavbar() {
             </Link>
             {SERVICE_PILLARS.map((page) => (
               <Link key={page.pageSlug} href={toPath(page.pageSlug)} onClick={() => setOpen(false)}>
-                {page.pageTitle.replace(/\s*\|.*/, "")}
+                {pageListLabel(page)}
               </Link>
             ))}
           </nav>

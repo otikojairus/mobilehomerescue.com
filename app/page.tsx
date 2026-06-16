@@ -11,6 +11,7 @@ import {
   SUPPORT_PAGES,
   absoluteUrl,
   linkLabel,
+  pageListLabel,
   toPath,
 } from "@/lib/site-data";
 import { breadcrumbSchema } from "@/lib/schema";
@@ -112,7 +113,7 @@ export default function HomePage() {
             {SERVICE_PILLARS.map((page) => (
               <Link className="rescue-card rescue-card-link" href={toPath(page.pageSlug)} key={page.pageSlug}>
                 <span>{page.pageType}</span>
-                <h3>{page.pageTitle.replace(/\s*\|.*/, "")}</h3>
+                <h3>{pageListLabel(page)}</h3>
                 <p>{page.searchIntent} support with direct phone routing and related city pages.</p>
               </Link>
             ))}
