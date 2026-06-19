@@ -49,6 +49,7 @@ export function faqSchema(page: SeoPage) {
 
 export function cityServiceSchema(page: SeoPage) {
   if (!isCityPage(page)) return null;
+  const location = pageLocation(page);
   return [
     {
       "@context": "https://schema.org",
@@ -59,7 +60,7 @@ export function cityServiceSchema(page: SeoPage) {
       url: absoluteUrl(page.pageSlug),
       areaServed: {
         "@type": "City",
-        name: pageLocation(page),
+        name: location,
       },
       priceRange: "$$",
     },
@@ -71,9 +72,10 @@ export function cityServiceSchema(page: SeoPage) {
       provider: {
         "@id": `${absoluteUrl(page.pageSlug)}#local-business`,
       },
-      areaServed: pageLocation(page),
+      areaServed: location,
       serviceType: serviceTopicLabel(page),
       url: absoluteUrl(page.pageSlug),
     },
   ];
 }
+

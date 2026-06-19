@@ -13,7 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}${page.pageSlug}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
-      priority: page.priority === "Top Priority" ? 0.92 : page.priority === "High" ? 0.84 : 0.76,
+      priority: page.pageType === "Service Pillar" ? 0.92 : page.pageType === "City Service" ? 0.82 : 0.72,
     })),
   ];
 }
+

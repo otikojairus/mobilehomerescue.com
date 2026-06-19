@@ -23,6 +23,12 @@ Disallow: */feed
 Disallow: */rss
 Disallow: */embed
 
+User-Agent: Googlebot
+Allow: /
+
+User-Agent: Bingbot
+Allow: /
+
 User-Agent: facebookexternalhit
 Allow: /
 
@@ -30,15 +36,6 @@ User-Agent: Twitterbot
 Allow: /
 
 User-Agent: LinkedInBot
-Allow: /
-
-User-Agent: WhatsApp
-Allow: /
-
-User-Agent: Googlebot
-Allow: /
-
-User-Agent: Bingbot
 Allow: /
 `;
 

@@ -4,60 +4,68 @@ import {
   CITY_PAGES,
   PHONE_DISPLAY,
   PHONE_E164,
-  SERVICE_PILLARS,
+  PILLAR_PAGES,
   SITE_NAME,
-  SUPPORT_PAGES,
   pageListLabel,
+  shortPageTitle,
   toPath,
 } from "@/lib/site-data";
 
 export function SiteFooter() {
   return (
-    <footer className="rescue-footer">
-      <div className="rescue-wrap rescue-footer-grid">
-        <div>
-          <div className="rescue-footer-brand">
-            <Image src="/logo.svg" alt="Mobile Home Rescue logo" width={34} height={34} />
-            <p>{SITE_NAME}</p>
+    <footer className="site-footer">
+      <div className="site-shell site-footer-grid">
+        <section>
+          <div className="site-footer-brand">
+            <Image src="/logo.svg" alt="Sump & Septic Co. logo" width={38} height={38} />
+            <div>
+              <p>{SITE_NAME}</p>
+              <span>Practical help when the water won’t wait</span>
+            </div>
           </div>
-          <p className="rescue-footer-copy">
-            Call-only help for manufactured homes, mobile homes, RVs, trailers, leaks, burst pipes, and water damage
-            response across Canada.
+          <p className="site-footer-copy">
+            Friendly, direct support for septic systems, sump pumps, and drainage issues that need attention fast.
           </p>
-          <a className="rescue-call rescue-footer-call" href={`tel:${PHONE_E164}`}>
+          <a className="site-call site-footer-call" href={`tel:${PHONE_E164}`}>
             Call {PHONE_DISPLAY}
           </a>
-        </div>
-        <div>
-          <h2>Service Hubs</h2>
-          <nav className="rescue-footer-links" aria-label="Footer service hubs">
-            {SERVICE_PILLARS.map((page) => (
+        </section>
+
+        <section>
+          <h2>Service pages</h2>
+          <nav className="site-footer-links" aria-label="Footer pillar pages">
+            {PILLAR_PAGES.slice(0, 6).map((page) => (
               <Link key={page.pageSlug} href={toPath(page.pageSlug)}>
-                {pageListLabel(page)}
+                {shortPageTitle(page)}
               </Link>
             ))}
           </nav>
-        </div>
-        <div>
-          <h2>Urgent Guides</h2>
-          <nav className="rescue-footer-links" aria-label="Footer support pages">
-            {SUPPORT_PAGES.slice(0, 7).map((page) => (
+        </section>
+
+        <section>
+          <h2>Quick help</h2>
+          <nav className="site-footer-links" aria-label="Footer quick pages">
+            {[
+              ...PILLAR_PAGES.slice(6, 10),
+              ...CITY_PAGES.slice(0, 8),
+            ].map((page) => (
               <Link key={page.pageSlug} href={toPath(page.pageSlug)}>
-                {pageListLabel(page)}
+                {page.pageType === "City Service" ? pageListLabel(page).split(" • ")[0] : shortPageTitle(page)}
               </Link>
             ))}
           </nav>
-        </div>
-        <div>
-          <h2>City Coverage</h2>
-          <nav className="rescue-footer-links rescue-footer-cities" aria-label="Footer city pages">
-            {CITY_PAGES.slice(0, 14).map((page) => (
+        </section>
+
+        <section>
+          <h2>Popular cities</h2>
+          <nav className="site-footer-links site-footer-cities" aria-label="Footer city pages">
+            {CITY_PAGES.slice(0, 12).map((page) => (
               <Link key={page.pageSlug} href={toPath(page.pageSlug)} aria-label={pageListLabel(page)}>
-                {pageListLabel(page)}
+                {pageListLabel(page).split(" • ")[0]}
               </Link>
             ))}
           </nav>
-        </div>
+        </section>
       </div>
     </footer>
   );

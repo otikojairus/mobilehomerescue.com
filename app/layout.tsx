@@ -1,35 +1,48 @@
 import type { Metadata } from "next";
-import { Lora, Plus_Jakarta_Sans } from "next/font/google";
+import { Fraunces, Space_Grotesk } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNavbar } from "@/components/site-navbar";
-import { SITE_NAME, absoluteUrl, getSiteUrl } from "@/lib/site-data";
+import { SITE_NAME, SITE_TAGLINE, absoluteUrl, getSiteUrl } from "@/lib/site-data";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"], display: "swap" });
-const lora = Lora({ variable: "--font-lora", subsets: ["latin"], display: "swap" });
+const display = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const body = Space_Grotesk({
+  variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: `${SITE_NAME} | Mobile Home, RV and Water Damage Help`,
+    default: `${SITE_NAME} | Septic and Sump Pump Help`,
     template: "%s",
   },
-  description:
-    "Canada-wide mobile home plumbing, RV plumbing, emergency plumber, burst pipe, and water damage response pages with direct call support.",
+  description: SITE_TAGLINE,
   alternates: { canonical: "/" },
   openGraph: {
-    title: `${SITE_NAME} | Mobile Home, RV and Water Damage Help`,
-    description: "Call-only plumbing and water damage response pages for manufactured homes, trailers, and RVs.",
+    title: `${SITE_NAME} | Septic and Sump Pump Help`,
+    description: SITE_TAGLINE,
     url: absoluteUrl("/"),
     type: "website",
     siteName: SITE_NAME,
     locale: "en_CA",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | Septic and Sump Pump Help`,
+    description: SITE_TAGLINE,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-CA" className={`${jakarta.variable} ${lora.variable}`}>
+    <html lang="en-CA" className={`${display.variable} ${body.variable}`}>
       <body>
         <SiteNavbar />
         {children}
@@ -38,3 +51,4 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+
